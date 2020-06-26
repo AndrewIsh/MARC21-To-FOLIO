@@ -15,6 +15,7 @@ from marc_to_folio import HoldingsDefaultMapper
 def parse_args():
     """Parse CLI Arguments"""
     parser = argparse.ArgumentParser()
+
     parser.add_argument("source_folder", help="path to marc records folder")
     parser.add_argument("result_folder", help="path to results folder")
     parser.add_argument("okapi_url", help=("OKAPI base url"))
@@ -43,6 +44,11 @@ def parse_args():
 def main():
     """Main method. Magic starts here."""
     args = parse_args()
+    logging.basicConfig(
+        filename=os.path.join(args.result_folder, "example.log"),
+        format="%(asctime)s %(message)s",
+        level=logging.ERROR,
+    )
     folio_client = FolioClient(
         args.okapi_url, args.tenant_id, args.username, args.password
     )
@@ -53,6 +59,7 @@ def main():
         for f in listdir(args.source_folder)
         if isfile(os.path.join(args.source_folder, f))
     ]
+
     with open(
         os.path.join(args.result_folder, "instance_id_map.json"), "r"
     ) as json_file, open(
