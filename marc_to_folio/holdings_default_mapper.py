@@ -261,7 +261,8 @@ class HoldingsDefaultMapper:
                         add_stats(
                             self.unmapped_locations, f"Legacy code - {legacy_code}"
                         )
-                        raise ValueError(f"Legacy location not mapped: {legacy_code}")
+                        # raise ValueError(f"Legacy location not mapped: {legacy_code}")
+                        mapped_code = "tech"
                 else:
                     mapped_code = legacy_code
                 loc = next(
